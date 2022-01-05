@@ -1,32 +1,44 @@
 package com.caseitau.desafio.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import javax.persistence.*;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
-
+@Entity
+@Table(name = "Cat")
 public class Cat {
 	
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id", nullable = false)
+	private Long id;
+	
+	@Column(name = "name", length = 50, nullable = false)
 	private String name;
-	private String id;
+	
+	@Column(name = "temperament", length = 50, nullable = false)
 	private String temperament;
+	
+	@Column(name = "origin", length = 50, nullable = false)
 	private String origin;
+	
+	@Column(name = "description", length = 50, nullable = false)
 	private String description;	
 	
 	public Cat() {
 		
 	}
+		
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public String getId() {
+	public Long getId() {
 		return id;
 	}
-	public void setId(String id) {
-		this.id = id;
-	}
+
 	public String getTemperament() {
 		return temperament;
 	}
@@ -45,9 +57,12 @@ public class Cat {
 	public void setDescription(String description) {
 		this.description = description;
 	}
-	
+
 	@Override
 	public String toString() {
-		return "Breed=" + name + "";
-	}		
+		return "id=" + id + ", name=" + name + ", temperament=" + temperament + ", origin=" + origin
+				+ ", description=" + description;
+	}
+	
+	
 }
