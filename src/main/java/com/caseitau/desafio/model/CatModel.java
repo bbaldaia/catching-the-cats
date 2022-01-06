@@ -6,37 +6,49 @@ import javax.persistence.*;
 @JsonIgnoreProperties(ignoreUnknown = true)
 @Entity
 @Table(name = "Cat")
-public class Cat {
+public class CatModel {
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
-	@Column(name = "id", nullable = false)
-	private Long id;
+	@Column(name = "id")
+	public Long databaseid;
 	
-	@Column(name = "name", length = 50, nullable = false)
-	private String name;
+	@Column(name = "cat_id", length = 255)
+	public String id;
 	
-	@Column(name = "temperament", length = 50, nullable = false)
-	private String temperament;
+	@Column(name = "name", length = 255)
+	public String name;
 	
-	@Column(name = "origin", length = 50, nullable = false)
-	private String origin;
+	@Column(name = "temperament", length = 255)
+	public String temperament;
 	
-	@Column(name = "description", length = 50, nullable = false)
-	private String description;	
+	@Column(name = "origin", length = 255)
+	public String origin;
 	
-	public Cat() {
+	@Column(name = "description", length = 255)
+	public String description;		
+	
+	public CatModel() {
 		
 	}
 		
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
 	public String getName() {
 		return name;
 	}
 	public void setName(String name) {
 		this.name = name;
 	}
-	public Long getId() {
-		return id;
+
+	public Long getDatabaseid() {
+		return databaseid;
 	}
 
 	public String getTemperament() {
@@ -56,13 +68,11 @@ public class Cat {
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
+	}	
 
 	@Override
 	public String toString() {
 		return "id=" + id + ", name=" + name + ", temperament=" + temperament + ", origin=" + origin
 				+ ", description=" + description;
-	}
-	
-	
+	}	
 }
