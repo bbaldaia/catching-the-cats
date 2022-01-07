@@ -1,17 +1,17 @@
-### Utilizando a The Cat API
+## Utilizando a The Cat API
 Aplicação realizada para o processo seletivo no Itaú
 
-### Sobre 
+## Sobre 
 O projeto consiste na utilização de uma API externa que disponibiliza diversas informações sobre diferentes raças de gatos. A partir de uma requisição HTTP, o cliente obterá dados customizados sobre raças específicas.
 
-### Tecnologias utilizadas 
+## Tecnologias utilizadas 
 - Spring Boot
 - Spring Data
 - Spring Web
 - Banco de dados H2
 - Postman
 
-### Funcionalidades 
+## Funcionalidades 
 Como dito anteriormente, é possível realizar consultas personalizadas a partir de uma requisição HTTP do tipo GET, considerando como URI base "{host}:8080/find-cat". São elas:
 - Listagem de todas as raças de gatos a partir do endpoint "/all-cats"
 - Listagem de todas as informações de uma raça de gato específica a partir do endpoint "/breed/{name}" - sendo o "name" o nome da raça (exemplo: Siberian, Balinese, Abyssinian, etc)
@@ -19,7 +19,7 @@ Como dito anteriormente, é possível realizar consultas personalizadas a partir
 - Listagem de todas as raças de gato a partir de uma origem específica a partir do endpoint "/origin/{origin}" - sendo "origin" a origem (país) escolhida (exemplo: France, United States, Egypt, etc)
 *** as informações trafegadas sobre os gatos são: nome (raça), id, temperamento, origem e descrição. Além disso, para cada consulta *por raça* realizada, é realizada a persistência dos dados
 
-### Sobre a estrutura do projeto
+## Sobre a estrutura do projeto
 *Design*
 A aplicação segue um padrão de atribuição de responsabilidades para cada classe implementada, que pode ser encontrada na pasta src.
 
@@ -29,7 +29,7 @@ A aplicação segue um padrão de atribuição de responsabilidades para cada cl
 - Service: nessa clase é feita a ponte com a repository para realização da persistência dos dados no banco de dados.
 - Repository: utilizando um repositório, é garantido uma única camada de acesso aos dados.
 
-### Utilização
+## Utilização
 *Para executar e testar o projeto, você precisará: *
 - Ter instalado em sua máquina o Java 11 ou superior
 - Ter instalado um API Client (Postman)
