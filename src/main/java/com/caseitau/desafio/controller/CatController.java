@@ -49,7 +49,23 @@ public class CatController {
 		return catsInJsonFormat;		
 	}
 	
+	@GetMapping("/breed/{name}")
+	public String getByBreed(@PathVariable String name) throws JsonMappingException, JsonProcessingException {
+				
+		String url = baseURL + "/search?q=" + name;		
+		List<CatModel> catList = getCatsFromAPI(url);
+			
+		CatModel catWithoutArrayFormat = catList.get(0);		
+		catService.save(catWithoutArrayFormat);
+		
+		ObjectMapper mapper = new ObjectMapper();		
+		String catInJsonFormat = mapper.writeValueAsString(catWithoutArrayFormat);
+		
+		return catInJsonFormat;
+	}	
+	
 	@GetMapping("/temperament/{temperament}")
+	
 	public String getByTemperament(@PathVariable String temperament) throws JsonMappingException, JsonProcessingException {
 		
 		List<CatModel> catsWithGivenTemperament = new ArrayList<CatModel>();		
@@ -84,20 +100,6 @@ public class CatController {
 		
 		return catsInJsonFormat;
 	}	
-	
-	@GetMapping("/breed/{name}")
-	public String getByBreed(@PathVariable String name) throws JsonMappingException, JsonProcessingException {
-				
-		String url = baseURL + "/search?q=" + name;		
-		List<CatModel> catList = getCatsFromAPI(url);
-			
-		CatModel catWithoutArrayFormat = catList.get(0);		
-		catService.save(catWithoutArrayFormat);
-		
-		ObjectMapper mapper = new ObjectMapper();		
-		String catInJsonFormat = mapper.writeValueAsString(catWithoutArrayFormat);
-		
-		return catInJsonFormat;
-	}	
+
 
 }
