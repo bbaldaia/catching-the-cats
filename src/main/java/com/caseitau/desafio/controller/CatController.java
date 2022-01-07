@@ -3,10 +3,6 @@ package com.caseitau.desafio.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
-import org.springframework.context.annotation.Bean;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -14,7 +10,6 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
 import com.caseitau.desafio.model.CatModel;
-import com.caseitau.desafio.repository.CatRepository;
 import com.caseitau.desafio.service.CatService;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
@@ -26,84 +21,83 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 public class CatController {
 
 	private CatService catService;
+	String baseURL = "https://api.thecatapi.com/v1/breeds";
 	
 	CatController(CatService catService) {
 		this.catService = catService;
-	}
-	
-	String baseURL = "https://api.thecatapi.com/v1/breeds";
+	}	
 	
 	private List<CatModel> getCatsFromAPI(String url) throws JsonMappingException, JsonProcessingException {
-		RestTemplate template = new RestTemplate();
 		
+		RestTemplate template = new RestTemplate();		
 		String response = template.getForEntity(url, String.class).getBody();
 		
-		ObjectMapper mapper = new ObjectMapper();
-		
+		ObjectMapper mapper = new ObjectMapper();		
 		List<CatModel> catList = mapper.readValue(response, new TypeReference<List<CatModel>>(){});
 		
 		return catList;
 	}
-	
-	@GetMapping("/allcats")
-	public String getAllCats() throws JsonMappingException, JsonProcessingException {	
-		List<CatModel> cats = getCatsFromAPI(baseURL);
-		
-		return cats.toString();		
-	}
 
 	
-	@GetMapping("/temper/{temper}")
-	//get URL from Postman
-	public String getByTemper() throws JsonMappingException, JsonProcessingException {
+	@GetMapping("/all-cats")
+	public String getAllCats() throws JsonMappingException, JsonProcessingException {	
 		
-		List<String> gentleCats = new ArrayList<String>();
+		List<CatModel> catList = getCatsFromAPI(baseURL);
+		ObjectMapper mapper = new ObjectMapper();
+		String catsInJsonFormat = mapper.writeValueAsString(catList);
+
+		return catsInJsonFormat;		
+	}
+	
+	@GetMapping("/temperament/{temperament}")
+	public String getByTemperament(@PathVariable String temperament) throws JsonMappingException, JsonProcessingException {
 		
-		List<CatModel> cats = getCatsFromAPI(baseURL);
+		List<CatModel> catsWithGivenTemperament = new ArrayList<CatModel>();		
+		List<CatModel> catList = getCatsFromAPI(baseURL);
 		
-		for (int i = 0; i < cats.size(); i++) {
-			if (cats.get(i).temperament.contains("Gentle")) {
-				gentleCats.add(cats.get(i).toString());
+		for (int i = 0; i < catList.size(); i++) {
+			if (catList.get(i).temperament.contains(temperament)) {
+				catsWithGivenTemperament.add(catList.get(i));
 			}
 		}
 		
-		return gentleCats.toString();		
+		ObjectMapper mapper = new ObjectMapper();
+		String catsInJsonFormat = mapper.writeValueAsString(catsWithGivenTemperament);
+		
+		return catsInJsonFormat;		
 	}
 
 	@GetMapping("/origin/{origin}")
-	//get URL from Postman
-	public String getByOrigin() throws JsonMappingException, JsonProcessingException {
+	public String getByOrigin(@PathVariable String origin) throws JsonMappingException, JsonProcessingException {
 		
-		List<String> frenchCats = new ArrayList<String>();
+		List<CatModel> catsWithGivenOrigin = new ArrayList<CatModel>();		
+		List<CatModel> catList = getCatsFromAPI(baseURL);		
 		
-		List<CatModel> cats = getCatsFromAPI(baseURL);
-		
-		for (int i = 0; i < cats.size(); i++) {
-			if (cats.get(i).origin.contains("France")) {
-				frenchCats.add(cats.get(i).toString());
+		for (int i = 0; i < catList.size(); i++) {
+			if (catList.get(i).origin.contains(origin)) {
+				catsWithGivenOrigin.add(catList.get(i));
 			}
 		}
 		
-		return frenchCats.toString();	
+		ObjectMapper mapper = new ObjectMapper();
+		String catsInJsonFormat = mapper.writeValueAsString(catsWithGivenOrigin);
+		
+		return catsInJsonFormat;
 	}	
 	
 	@GetMapping("/breed/{name}")
-	public String GetByBreed(@PathVariable String name) throws JsonMappingException, JsonProcessingException {
+	public String getByBreed(@PathVariable String name) throws JsonMappingException, JsonProcessingException {
 				
-		String url = baseURL + "/search?q=" + name;
-		
+		String url = baseURL + "/search?q=" + name;		
 		List<CatModel> catList = getCatsFromAPI(url);
-
-		CatModel cat = catList.get(0);
+			
+		CatModel catWithoutArrayFormat = catList.get(0);		
+		catService.save(catWithoutArrayFormat);
 		
-		catService.save(cat);
+		ObjectMapper mapper = new ObjectMapper();		
+		String catInJsonFormat = mapper.writeValueAsString(catWithoutArrayFormat);
 		
-		ObjectMapper mapper = new ObjectMapper();
-		
-		String catJson = mapper.writeValueAsString(cat);
-		
-		return catJson;
+		return catInJsonFormat;
 	}	
+
 }
-
-

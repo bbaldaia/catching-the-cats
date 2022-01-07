@@ -7,5 +7,5 @@ import com.caseitau.desafio.model.CatModel;
 
 @Repository
 public interface CatRepository extends JpaRepository<CatModel, Long> {
-	public CatModel findByName(String name);
+
 }
