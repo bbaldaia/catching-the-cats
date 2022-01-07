@@ -38,17 +38,14 @@ A aplicação segue um padrão de atribuição de responsabilidades para cada cl
 1. Realize o clone do repositório 
 2. Configure o arquivo application.properties (pasta resources), para ajuste do banco de dados, com os seguintes comandos: 
 
-# DATASOURCE
 spring.datasource.url=jdbc:h2:file:./data/desafio
 spring.datasource.driverClassName=org.h2.Driver
 spring.datasource.username=bruno
 spring.datasource.password=password
 
-# H2 Console
 spring.h2.console.enabled=true
 spring.h2.console.path=/h2-console
 
-# JPA
 spring.jpa.database-platform=org.hibernate.dialect.H2Dialect
 spring.jpa.hibernate.ddl-auto=update
 
