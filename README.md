@@ -17,7 +17,7 @@ O projeto consiste na utilização de uma API externa que disponibiliza diversas
 **Estrutura de pastas criadas e responsabilidades**
 - Model: é a classe modelo, onde é atribuída a entidade e que recebe as requisições vindas da controller.
 - Controller: aqui é por onde passa toda requisição feita pela usuário, além de ser a classe que se comunica com a model a partir dessa requisição.
-- Service: nessa clase é feita a ponte com a repository para realização da persistência dos dados no banco de dados.
+- Service: nessa classe é feita a ponte com a repository para realização da persistência dos dados no banco de dados.
 - Repository: utilizando um repositório, é garantido uma única camada de acesso aos dados.
 
 ## Execução
