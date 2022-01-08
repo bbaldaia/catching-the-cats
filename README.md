@@ -8,7 +8,7 @@ O projeto consiste na utilização de uma API externa que disponibiliza diversas
 - Spring Boot
 - Spring Data
 - Spring Web
-- Banco de dados H2 (opcional)
+- Banco de dados PostgreSQL
 
 ## Sobre a estrutura do projeto
 **Design**
@@ -24,7 +24,7 @@ O projeto consiste na utilização de uma API externa que disponibiliza diversas
 **Para executar e testar o projeto, você precisará:**
 - Ter instalado em sua máquina o Java 11 ou superior
 - Um banco de dados
-- Ter instalado um API Client (Postman)
+- Ter instalado o Postman
 
 **Passo a passo**
 1. Realize o clone do repositório 
@@ -33,7 +33,7 @@ O projeto consiste na utilização de uma API externa que disponibiliza diversas
 4. Execute a classe DesafioApplication
 
 ## Funcionalidades
-Como dito anteriormente, é possível realizar consultas personalizadas a partir de uma requisição HTTP do tipo GET, considerando como URI base "/find-cat". São elas:
+Como dito anteriormente, é possível realizar consultas personalizadas a partir de uma requisição HTTP do tipo GET, considerando como URI base "https://catching-the-cats.herokuapp.com/find-cat". São elas:
 - Listagem de todas as raças de gatos a partir do endpoint "/all-cats"
 - Listagem de todas as informações de uma raça de gato específica a partir do endpoint "/breed/{name}" - sendo o "name" o nome da raça (exemplo: Siberian, Balinese, Abyssinian, etc)
 - Listagem de todas as raças de gato a partir de um temperamento especifico a partir do endpoint "/temperament/{temperament}" - sendo "temperament" o temperamento escolhido (exemplo: Gentle, Independent, Active, etc)
