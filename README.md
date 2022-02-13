@@ -1,8 +1,5 @@
-## Utilizando a The Cat API
-Aplicação realizada para o processo seletivo no Itaú
-
 ## Sobre 
-O projeto consiste na utilização de uma API externa que disponibiliza diversas informações sobre diferentes raças de gatos. A partir de uma requisição HTTP, o cliente obterá dados customizados sobre raças específicas.
+O projeto consiste na utilização de uma API externa (The Cat API) que disponibiliza diversas informações sobre diferentes raças de gatos. A partir de uma requisição HTTP, o cliente obterá dados customizados sobre raças específicas.
 
 ## Tecnologias utilizadas 
 - Spring Boot
